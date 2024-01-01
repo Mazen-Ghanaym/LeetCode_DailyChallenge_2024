@@ -1,2 +1,2 @@
 # LeetCode_DailyChallenge_2024
-Solutions for  Leet Code daily challenge 2024
+My Solutions for  Leet Code Daily Challenge 2024
