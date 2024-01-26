@@ -1,0 +1,39 @@
+class Solution
+{
+public:
+    vector<vector<vector<int>>> dp;
+    int n, m;
+    int dx[4] = {1, -1, 0, 0};
+    int dy[4] = {0, 0, 1, -1};
+    const int MOD = 1e9 + 7;
+    Solution()
+    {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+        cout.tie(NULL);
+    }
+    int rec(int i, int j, int maxMove)
+    {
+        if (i < 0 || i >= n || j < 0 || j >= m)
+            return 1;
+        if (!maxMove)
+            return 0;
+        int &ret = dp[i][j][maxMove];
+        if (~ret)
+            return ret;
+        ret = 0;
+        for (int k = 0; k < 4; k++)
+        {
+            ret = ((ret % MOD) + (rec(i + dy[k], j + dx[k], maxMove - 1) % MOD)) % MOD;
+            ret %= MOD;
+        }
+        return ret;
+    }
+    int findPaths(int m, int n, int maxMove, int startRow, int startColumn)
+    {
+        this->n = m;
+        this->m = n;
+        dp = vector<vector<vector<int>>>(m + 3, vector<vector<int>>(n + 3, vector<int>(maxMove + 4, -1)));
+        return rec(startRow, startColumn, maxMove) % MOD;
+    }
+};
